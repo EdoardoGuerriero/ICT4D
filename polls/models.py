@@ -29,15 +29,22 @@ class Choice(models.Model):
     def __str__(self):
         return self.choice_text
 
-'''    
-class Animal(models.Model):
-    name = models.CharField("Animal's name", max_length=30)
-    owner = models.CharField("Farmer's name", max_length=30)
-    time_since_request = models.DurationField()
-    symptom = models.CharField("Symptom description", max_length=200)
-    first_day_sickness = models.DateTimeField()
+       
+class Farmer(models.Model):
+    farmer_name = models.CharField("Farmer's name", max_length=50)
     number_animal_owned = models.IntegerField()
+    last_request_date = models.DateTimeField('Last request')
     
     def __str__(self):
-       return self.choice_text
-'''
+       return self.name
+    
+class Animal(models.Model):
+    species = models.CharField("Aminal's fspecies", max_length = 15)
+    farmer = models.ForeignKey(Farmer, on_delete=models.CASCADE)
+    time_since_request = models.DurationField()
+    symptom = models.CharField("Symptom description", max_length=200)
+    first_day_sickness = models.DateTimeField('Time passed from last request')
+    
+    
+    def __str__(self):
+       return self.symptom
